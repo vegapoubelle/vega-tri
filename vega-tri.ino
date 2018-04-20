@@ -1,11 +1,11 @@
 /* pour yann:
  * * fais des commentaires
  * * et fais des putain de fonctions stp
-
-    <3, -phil
 */
+
 #include <Arduino.h>
 #include "BasicStepperDriver.h"
+
 const int capteur_inductif = 13;
 const int avance = 17;
 const int arriere = 16;
