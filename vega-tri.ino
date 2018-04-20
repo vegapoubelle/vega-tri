@@ -23,8 +23,8 @@ int position2 = 0;
 bool bac_plastique = 0;
 bool bac_verre = 0;
 bool bac_metal = 0;
-//potentiomètre palpeur sur A4
-//courant palpeur sur A5
+//position sur A4
+//courant sur A5
 
 #define MOTOR_STEPS 200
 #define RPM 120
@@ -47,21 +47,37 @@ BasicStepperDriver stepper(MOTOR_STEPS, DIR, STEP);
 
 void setup() {
   Serial.begin(9600);
-  
+
   pinMode(capteur_inductif, INPUT);
   pinMode(avance, OUTPUT);
-  pinMode(arriere, OUTPUT);  
+  pinMode(arriere, OUTPUT);
 
   digitalWrite(avance, LOW);
   digitalWrite(arriere, LOW);
-  
+
   stepper.begin(RPM, MICROSTEPS);
 
   ledcSetup(LEDC_CHANNEL_0, LEDC_BASE_FREQ, LEDC_TIMER_13_BIT);
   ledcAttachPin(enable, LEDC_CHANNEL_0);
-  
+
   Serial.println(analogRead(A4));
 }
 void loop() {
 
 }
+
+void tri() {
+  //if (capteur_effort > 10 )
+  position_initiale = analogRead(A4);
+  while ((position_initiale < 4000) && (bac_metal != 0) && (compteur_boucle < 100)) {
+    compteur++;
+    position_initiale = analogRead(A4);
+    if (position_initiale > 4000)
+    }
+  while ( analogRead(A4) < 4000 ) //*************sortie Palpeur ( capteur_inductif == 0)
+  { digitalWrite(avance, HIGH);
+    ledcWrite( LEDC_CHANNEL_0, 8191);   //rapport cyclique de 0 à 8191 (6000 est le minimum pour déplacer le curseur)
+    courant = analogRead(A5);
+    Serial.println(courant);
+    delay(300);
+  }
